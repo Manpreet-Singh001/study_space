@@ -8,13 +8,19 @@ class StudySession(models.Model):
     end_time = models.DateTimeField(null=True)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
 
+    # def __str__(self):
+    #     return self.user_id
 
 class Topic(models.Model):
     name = models.CharField(max_length=30)
     session_id = models.ForeignKey(StudySession,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
 
 class Note(models.Model):
     note = models.TextField()
     topic_id = models.ForeignKey(Topic,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.note
