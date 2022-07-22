@@ -9,11 +9,16 @@ from django.views.decorators.csrf import csrf_exempt
 @post
 @csrf_exempt
 def signup(request):
-    # get the request body
-    user_details = json.loads(request.body)
-
-
-
+    # can be refactored to a function
+    try:
+        # get the request body
+        user_details = json.loads(request.body)
+        username = user_details['username']
+        password = user_details['password']
+        email = user_details['email']
+    except:
+        return JsonResponse({'msg':'missing user details'},
+                            status=400)
 
     return JsonResponse({'msg':user_details})
 
