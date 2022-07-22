@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Greeting() {
   const [activityName, setActivityName] = useState("");
@@ -7,6 +8,18 @@ function Greeting() {
   // create a session with the details
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/study_session/",
+        {
+          topic_name: activityName,
+        },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // ask user what activity they doing? and for how long
