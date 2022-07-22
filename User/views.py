@@ -28,7 +28,7 @@ def signup(request):
         user.save()
     except Exception as e:
         print(e)
-        return JsonResponse({'msg':'error occured'})
+        return JsonResponse({'msg':'error occured'}, status=400)
 
     return JsonResponse({'msg':'user created'})
 

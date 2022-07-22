@@ -1,3 +1,27 @@
 .idea
 plan.txt
 checklist.txt
+research.txt
+
+
+
+# dependencies
+client/study_space/nde_modules
+client/study_space/.pnp
+client/study_space/.pnp.js
+
+# testing
+client/study_space/coverage
+
+# production
+client/study_space//build
+
+# misc
+client/study_space/.DS_Store
+client/study_space/.env.local
+client/study_space/.env.development.local
+client/study_space/.env.test.local
+client/study_space/.env.production.local
+client/study_space/npm-debug.log*
+client/study_space/yarn-debug.log*
+client/study_space/yarn-error.log*
