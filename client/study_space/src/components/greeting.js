@@ -3,6 +3,7 @@ import axios from "axios";
 
 function Greeting() {
   const [activityName, setActivityName] = useState("");
+  const [activityCategory, setActivityCategory] = useState("");
   const [timeGoal, setTimeGoal] = useState(0);
 
   // create a session with the details
@@ -14,6 +15,8 @@ function Greeting() {
         "http://localhost:8000/study_session/",
         {
           topic_name: activityName,
+          category: activityCategory,
+          time_goal: timeGoal,
         },
         { withCredentials: true }
       );
@@ -35,7 +38,16 @@ function Greeting() {
             setActivityName(e.target.value);
           }}
         />
-        <label htmlFor="activity-time">time in minutes</label>
+        <label htmlFor="activity-name">category</label>
+        <input
+          type="text"
+          id="activity-category"
+          value={activityCategory}
+          onChange={(e) => {
+            setActivityCategory(e.target.value);
+          }}
+        />
+        <label htmlFor="activity-time">time goal</label>
         <input
           type="number"
           value={timeGoal}

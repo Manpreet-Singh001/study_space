@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .models import StudySession,Topic,Note
+from django.utils.timezone import now
 
 @require_POST
 @csrf_exempt
@@ -20,7 +21,6 @@ def start_session(request):
         # find the user
         user = User.objects.get(id=request.user.id)
 
-
         study_session = StudySession(user_id=user)
         study_session.save()
 
@@ -30,6 +30,23 @@ def start_session(request):
     except Exception as e:
         print(e)
     return JsonResponse({'msg':'hit'})
+
+
+# end session route
+@require_POST
+@csrf_exempt
+def end_session(request,study_session_id):
+    print(study_session_id)
+    # find the session
+    try:
+        study_session = StudySession.objects.get(id=study_session_id)
+        study_session.end_time = now()
+        study_session.save()
+    except Exception as e:
+        print(e)
+    return JsonResponse({'msg':'hit'})
+
+
 
 
 @require_POST
