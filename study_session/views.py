@@ -1,8 +1,9 @@
 import json
 
 from django.contrib.auth.models import User
+from django.core import serializers
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST,require_GET
 from django.views.decorators.csrf import csrf_exempt
 from .models import StudySession,Topic,Note
 from django.utils.timezone import now
@@ -67,4 +68,18 @@ def create_note(request,topic_id):
     except Exception as e:
         print(e)
     return JsonResponse({'msg':'hit'})
+
+@require_GET
+@csrf_exempt
+def get_topics(request):
+
+    # get all topics by a user
+    user = User.objects.get(id=request.user.id)
+    if user is not None:
+        topics = user.topic_set.all().values()
+        topics = list(topics)
+        print(topics)
+
+    return JsonResponse({'topics_data':topics},safe=False)
+
 

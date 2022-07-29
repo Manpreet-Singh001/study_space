@@ -5,14 +5,14 @@ import birds from "../sounds/birds.mp3";
 
 function SoundSelector(props) {
   return (
-    <ul>
+    <div>
       <SoundPlayer audioSrc={rain} audioName={"rain"} />
       <SoundPlayer audioSrc={birds} audioName={"birds"} />
       <li>birds</li>
       <li>insects</li>
       <li>ambience</li>
       <li>water flowing</li>
-    </ul>
+    </div>
   );
 }
 

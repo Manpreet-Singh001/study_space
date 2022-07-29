@@ -12,16 +12,18 @@ class StudySession(models.Model):
     #     return self.user_id
 
 class Topic(models.Model):
-    name = models.CharField(max_length=30)
     category = models.CharField(max_length=20)
     session_id = models.ForeignKey(StudySession,on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.category
 
 class Note(models.Model):
+    note_date = models.DateTimeField(default=now)
     note = models.TextField()
     topic_id = models.ForeignKey(Topic,on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.note

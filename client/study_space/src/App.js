@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./components/signup";
 import Login from "./components/login";
-import Greeting from "./components/greeting";
+import Session from "./components/session";
 import Home from "./pages/home";
 
 function App() {

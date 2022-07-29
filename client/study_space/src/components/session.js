@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function Greeting() {
+function Session() {
   const [activityName, setActivityName] = useState("");
   const [activityCategory, setActivityCategory] = useState("");
   const [timeGoal, setTimeGoal] = useState(0);
@@ -61,4 +61,4 @@ function Greeting() {
   );
 }
 
-export default Greeting;
+export default Session;

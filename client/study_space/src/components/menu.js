@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./menu.css";
 import SoundSelector from "./soundSelector";
 import Notes from "./notes";
+import Session from "./session";
 
 function Menu(props) {
   const [content, setContent] = useState("default");
@@ -27,12 +28,20 @@ function Menu(props) {
         >
           notes
         </button>
-        <button className="menu-item">topics</button>
+        <button
+          className="menu-item"
+          onClick={() => {
+            setContent("session");
+          }}
+        >
+          session
+        </button>
         <button className="menu-item">s</button>
         <button className="menu-item">s</button>
       </div>
     ),
     "sound-select": <SoundSelector />,
+    session: <Session />,
     notes: <Notes />,
   };
 
