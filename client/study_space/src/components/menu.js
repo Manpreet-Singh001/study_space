@@ -6,6 +6,8 @@ import Notes from "./notes";
 function Menu(props) {
   const [content, setContent] = useState("default");
 
+  const [active, setActive] = useState(false);
+
   const menuSelections = {
     default: (
       <div className="menu-container">
@@ -35,19 +37,35 @@ function Menu(props) {
   };
 
   return (
-    <div className="menu">
-      <h1>menu</h1>
-      {menuSelections[content]}
-      {content !== "default" && (
+    <>
+      <button
+        onClick={() => {
+          setActive(true);
+        }}
+      >
+        show
+      </button>
+      <div className={`menu ${active && "menu-active"}`}>
+        <h1>menu</h1>
         <button
           onClick={() => {
-            setContent("default");
+            setActive(false);
           }}
         >
-          go back
+          shrink
         </button>
-      )}
-    </div>
+        {content !== "default" && (
+          <button
+            onClick={() => {
+              setContent("default");
+            }}
+          >
+            go back
+          </button>
+        )}
+        {menuSelections[content]}
+      </div>
+    </>
   );
 }
 
