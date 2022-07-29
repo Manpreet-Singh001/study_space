@@ -1,0 +1,17 @@
+.menu {
+  background-color: violet;
+  height: 100vh;
+  width: 50%;
+}
+
+.menu-item {
+  border: none;
+  background-color: palegreen;
+  text-align: left;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
