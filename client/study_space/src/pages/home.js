@@ -1,13 +1,7 @@
 import React from "react";
-import Menu from "../components/menu";
 
 function Home(props) {
-  return (
-    <div>
-      <Menu />
-      waht
-    </div>
-  );
+  return <div>home</div>;
 }
 
 export default Home;
