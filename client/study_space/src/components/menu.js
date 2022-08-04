@@ -7,6 +7,7 @@ import Session from "./session";
 function Menu(props) {
   const [content, setContent] = useState("default");
 
+  const [sound, setSound] = useState(false);
   const [active, setActive] = useState(false);
 
   const menuSelections = {
@@ -15,6 +16,7 @@ function Menu(props) {
         <button
           className="menu-item"
           onClick={() => {
+            setSound(true);
             setContent("sound-select");
           }}
         >
@@ -40,7 +42,7 @@ function Menu(props) {
         <button className="menu-item">s</button>
       </div>
     ),
-    "sound-select": <SoundSelector />,
+    "sound-select": <div />,
     session: <Session />,
     notes: <Notes />,
   };
@@ -67,11 +69,13 @@ function Menu(props) {
           <button
             onClick={() => {
               setContent("default");
+              setSound(false);
             }}
           >
             go back
           </button>
         )}
+        <SoundSelector visibility={sound} />
         {menuSelections[content]}
       </div>
     </>
