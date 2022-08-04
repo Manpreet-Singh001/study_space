@@ -56,7 +56,6 @@ const s = (sketch) => {
     // );
 
     for (const fish of fishes) {
-      console.log(fish.vel.x);
       avoidOthersAndMatchNeighbors(fish);
       fish.show();
       keepWithinBounds(fish);
@@ -66,12 +65,16 @@ const s = (sketch) => {
   // needs a position, direction, speed
   function boid(pos, imgs) {
     this.pos = pos;
-    this.vel = sketch.createVector(sketch.random(-5, 5), sketch.random(-5, 5));
+    this.vel = sketch.createVector(
+      sketch.random(1, 5) * getOne(),
+      sketch.random(1, 5) * getOne()
+    );
     this.angle = 0;
     this.imgs = imgs;
 
     // draw a triangle based on pos
     this.show = () => {
+      this.vel.limit(20);
       // this.pos.add(this.dest);
       this.angle = ORIGIN.angleBetween(
         p5.Vector.sub(this.pos, p5.Vector.add(this.pos, this.vel))
@@ -85,7 +88,9 @@ const s = (sketch) => {
         this.angle
       );
       this.pos.add(
-        p5.Vector.normalize(this.vel).mult((sketch.deltaTime / 50) * 10)
+        p5.Vector.normalize(this.vel).mult(
+          (sketch.deltaTime / 50) * this.vel.mag()
+        )
       );
     };
   }
@@ -141,26 +146,27 @@ const s = (sketch) => {
 
   function keepWithinBounds(boid) {
     const margin = 200;
-    const turnFactor = 1;
+    const turnFactor = sketch.random(4, 8);
     let angle = 80;
 
     if (boid.pos.x < margin) {
-      boid.vel.x = Math.abs(boid.vel.x) * sketch.cos(angle) * 2;
+      boid.vel.x = Math.abs(boid.vel.x) * sketch.cos(angle) * turnFactor;
     }
     if (boid.pos.x + margin > sketch.width) {
-      boid.vel.x = -1 * Math.abs(boid.vel.x) * sketch.cos(angle) * 2;
+      boid.vel.x = -1 * Math.abs(boid.vel.x) * sketch.cos(angle) * turnFactor;
     }
     if (boid.pos.y < margin) {
-      boid.vel.y = Math.abs(boid.vel.y) * sketch.cos(angle) * 2;
+      boid.vel.y = Math.abs(boid.vel.y) * sketch.cos(angle) * turnFactor;
     }
     if (boid.pos.y + margin > sketch.height) {
-      boid.vel.y = -1 * Math.abs(boid.vel.y) * sketch.cos(angle) * 2;
+      boid.vel.y = -1 * Math.abs(boid.vel.y) * sketch.cos(angle) * turnFactor;
     }
   }
 
   function avoidOthersAndMatchNeighbors(boid) {
-    let avoidDis = 40;
-    let viewDis = 40;
+    let avoidDis = 25;
+    let viewDis = 80;
+    let comDis = 200;
     let steerAway = sketch.createVector(0, 0);
 
     let matchVel = sketch.createVector(0, 0);
@@ -178,14 +184,18 @@ const s = (sketch) => {
         matched++;
       }
       // steer towards center of mass
-      if (Math.abs(fish.pos.dist(boid.pos)) < 400) {
+      if (Math.abs(fish.pos.dist(boid.pos)) < comDis) {
         com.add(fish.pos);
         comMatched++;
       }
     }
-    boid.vel.add(steerAway.mult(2));
-    boid.vel.add(matchVel.div(matched).mult(0.009));
-    boid.vel.add(p5.Vector.sub(com.div(comMatched), boid.pos).mult(4));
+    boid.vel.add(steerAway.mult(0.8));
+    boid.vel.add(matchVel.div(matched).mult(0.09));
+    boid.vel.add(p5.Vector.sub(com.div(comMatched), boid.pos).mult(0.004));
+  }
+
+  function getOne() {
+    return sketch.random([-1, 1]);
   }
 };
 
