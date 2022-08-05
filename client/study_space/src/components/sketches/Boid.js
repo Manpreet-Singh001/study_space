@@ -5,6 +5,7 @@ const s = (sketch) => {
   let fish, fish_left;
   let fish3, fish3_right;
   let fishes = [];
+  let MAX_SPEED = 10;
 
   let ORIGIN;
 
@@ -66,15 +67,15 @@ const s = (sketch) => {
   function boid(pos, imgs) {
     this.pos = pos;
     this.vel = sketch.createVector(
-      sketch.random(1, 5) * getOne(),
-      sketch.random(1, 5) * getOne()
+      sketch.random(7, 8) * getOne(),
+      sketch.random(7, 8) * getOne()
     );
     this.angle = 0;
     this.imgs = imgs;
 
     // draw a triangle based on pos
     this.show = () => {
-      this.vel.limit(20);
+      this.vel.limit(MAX_SPEED);
       // this.pos.add(this.dest);
       this.angle = ORIGIN.angleBetween(
         p5.Vector.sub(this.pos, p5.Vector.add(this.pos, this.vel))
@@ -166,7 +167,7 @@ const s = (sketch) => {
   function avoidOthersAndMatchNeighbors(boid) {
     let avoidDis = 25;
     let viewDis = 80;
-    let comDis = 200;
+    let comDis = 170;
     let steerAway = sketch.createVector(0, 0);
 
     let matchVel = sketch.createVector(0, 0);
@@ -189,9 +190,11 @@ const s = (sketch) => {
         comMatched++;
       }
     }
-    boid.vel.add(steerAway.mult(0.8));
-    boid.vel.add(matchVel.div(matched).mult(0.09));
-    boid.vel.add(p5.Vector.sub(com.div(comMatched), boid.pos).mult(0.004));
+    boid.vel.add(steerAway.mult(MAX_SPEED / (10 * 2)));
+    boid.vel.add(matchVel.div(matched).mult(MAX_SPEED / 100));
+    boid.vel.add(
+      p5.Vector.sub(com.div(comMatched), boid.pos).mult(MAX_SPEED / (1000 * 7))
+    );
   }
 
   function getOne() {

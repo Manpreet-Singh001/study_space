@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./menu.css";
 import SoundSelector from "./soundSelector";
 import Notes from "./notes";
 import Session from "./session";

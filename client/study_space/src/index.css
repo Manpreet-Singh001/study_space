@@ -1,3 +1,40 @@
+:root {
+  --ocean-dark: rgba(41, 51, 92, 0.5);
+}
+
 body {
   margin: 0;
+}
+.menu {
+  background-color: var(--ocean-dark);
+  color: white;
+  height: 100vh;
+  width: 20rem;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  transform: translate(-100%);
+  transition: all ease 0.3s;
+}
+
+.menu-active {
+  transform: translate(0);
+}
+
+.menu-item {
+  border: none;
+  background-color: palegreen;
+  text-align: left;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 40%;
+}
+
+.hidden {
+  display: none;
 }
