@@ -57,9 +57,7 @@ const s = (sketch) => {
     // );
 
     for (const fish of fishes) {
-      avoidOthersAndMatchNeighbors(fish);
       fish.show();
-      keepWithinBounds(fish);
     }
   };
 
@@ -93,6 +91,10 @@ const s = (sketch) => {
           (sketch.deltaTime / 50) * this.vel.mag()
         )
       );
+      if (sketch.height) {
+        avoidOthersAndMatchNeighbors(this);
+        keepWithinBounds(this);
+      }
     };
   }
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SoundSelector from "./soundSelector";
 import Notes from "./notes";
 import Session from "./session";
+import { SessionContextProvider } from "../context/session";
 
 function Menu(props) {
   const [content, setContent] = useState("default");
